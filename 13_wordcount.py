@@ -47,7 +47,7 @@ Dicas:
 * Armazene todas as palavras em caixa baixa, assim, as palavras 'A' e 'a'
   contam como a mesma palavra.
 * Use str.split() (sem parêmatros) para fazer separar as palavras.
-* Não construa todo o programade uma vez. Faça por partes executando
+* Não construa todo o programa de uma vez. Faça por partes executando
 e conferindo cada etapa do seu progresso.
 """
 
@@ -56,7 +56,61 @@ import sys
 
 # +++ SUA SOLUÇÃO +++
 # Defina as funções print_words(filename) e print_top(filename).
+def print_words(filename):
+    arquivo = open(filename)
+    resposta = {}
 
+    for linha in arquivo:
+        palavras = linha.split()
+        
+        for palavra in palavras:
+
+            limpo = remove_trash(palavra)
+            #print(palavra, limpo)
+
+            if limpo in resposta:
+                resposta[limpo.lower()] += 1
+            else:
+                resposta[limpo.lower()] = 1
+    
+    respostas = {}
+    
+    for i in sorted(resposta.keys()):
+        respostas[i] = resposta[i]
+    
+    option = sys.argv[1]
+    if option == '--count':
+        for key in respostas:
+            print(key, ' :: ', respostas[key])
+
+    return respostas
+
+def remove_trash(word):
+    to_clean = word
+    trash = ('\'s', '\'ll', '\'re','\'ve','!','.','?',',', ':', '\'', ';', ')', '(', '"')
+
+
+    for x in range(len(trash)):
+        if trash[x] in to_clean.lower():
+            to_clean = to_clean.replace(trash[x], '')
+
+    return to_clean
+
+def print_top(filename):
+    listagem = print_words(filename)
+    listagem_ordenada = sorted(listagem.items(), key=lambda x: x[1], reverse=True)
+    x = 0
+    if len(listagem_ordenada) > 20:
+        print('20')
+        x = 20
+    else:
+        print(len(listagem_ordenada))
+        x = len(listagem_ordenada)
+
+    for i in range(0, x):
+        print(i+1, ' :: ', listagem_ordenada[i])
+    
+    return
 
 # A função abaixo chama print_words() ou print_top() de acordo com os
 # parêtros do programa.

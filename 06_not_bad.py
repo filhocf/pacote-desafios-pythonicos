@@ -8,10 +8,22 @@ por 'good' e retorne a string resultante.
 
 Exemplo: 'The dinner is not that bad!' retorna 'The dinner is good!'
 """
+import re
 
 def not_bad(s):
     # +++ SUA SOLUÇÃO +++
-    return
+    '''
+    # Solução tradicional de corte
+    if s.find('not') > 0 and s.find('bad') > 0 and s.find('not') < s.find('bad'):
+        # text = s[:s.find('not')] + 'good' + s[(s.find('bad')+3):]
+        text = s.replace
+    else:
+        text = s
+    '''
+    # Solução com RegEx
+    padrao = re.compile('not .* bad')
+    text = padrao.sub('good', s)
+    return text
 
 
 # --- Daqui para baixo são apenas códigos auxiliáries de teste. ---

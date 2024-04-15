@@ -10,9 +10,50 @@ Exemplo: 'abcde', a metade da frente é 'abc' e a de trás é 'de'.
 Finalmente, dadas duas strings a e b, retorne uma string na forma:
 a-frente + b-frente + a-trás + b-trás
 """
+import math
+
 def front_back(a, b):
     # +++ SUA SOLUÇÃO +++
-    return
+
+    '''
+    # Solução programática
+    i1 = len(a)/2
+    i2 = len(b)/2
+
+    if i1.is_integer():
+        a1, a2 = a[:int(i1)], a[int(i1):]
+    else:
+        a1, a2 = a[:(int(i1)+1)], a[int(i1)+1:]
+    if i2.is_integer():
+        b1, b2 = b[:int(i2)], b[int(i2):]
+    else:
+        b1, b2 = b[:(int(i2)+1)], b[int(i2)+1:]
+    '''
+    
+    # Solução otimizada com slice_srt()
+    a1, a2 = slice_srt(a)
+    b1, b2 = slice_srt(b)
+
+    text = ''.join([a1, b1, a2, b2])
+
+    return text
+
+def slice_srt(x):
+    ''''
+    # solução sem o math.ceil()
+    i = len(x)/2
+
+    if i.is_integer():
+        x1, x2 = x[:int(i)], x[int(i):]
+    else:
+        x1, x2 = x[:(int(i)+1)], x[int(i)+1:]
+    '''
+
+    # solução com math.ceil()
+    i = math.ceil(len(x)/2)
+    x1, x2 = x[:i], x[i:]
+
+    return x1, x2
 
 
 # --- Daqui para baixo são apenas códigos auxiliáries de teste. ---
